@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KINGS-SOUZA - Hub oficial com blogs sobre desenvolvimento pessoal, tecnologia, relacionamentos e espiritualidade">
+    <meta name="keywords" content="kings-souza, desenvolvimento pessoal, TDAH, tecnologia, IA, dieta, espiritualidade">
+    <title>KINGS-SOUZA | Hub Oficial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(50px, -50px) rotate(120deg); }
+            66% { transform: translate(-50px, 50px) rotate(240deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 1000px;
+        }
+        
+        .crown {
+            font-size: 120px;
+            margin-bottom: 30px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .logo {
+            font-size: 80px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+            animation: slideDown 1s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tagline {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        
+        .social-icon:hover {
+            background: white;
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .social-icon.facebook:hover { color: #1877f2; }
+        .social-icon.instagram:hover { color: #e4405f; }
+        .social-icon.whatsapp:hover { color: #25d366; }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            font-size: 40px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .blogs-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 24px;
+            color: #888;
+            margin-bottom: 80px;
+        }
+        
+        .category {
+            max-width: 1400px;
+            margin: 0 auto 80px auto;
+        }
+        
+        .category-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            padding-left: 30px;
+            border-left: 6px solid;
+        }
+        
+        .category-title.dev { border-left-color: #667eea; color: #667eea; }
+        .category-title.wellness { border-left-color: #f093fb; color: #f093fb; }
+        .category-title.faith { border-left-color: #ffd93d; color: #ffd93d; }
+        
+        .blogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .blog-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 20px 60px rgba(102,126,234,0.4);
+        }
+        
+        .blog-card:hover::before {
+            opacity: 1;
+        }
+        
+        .blog-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+            transition: all 0.4s ease;
+        }
+        
+        .blog-card:hover .blog-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .blog-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-description {
+            font-size: 16px;
+            color: #aaa;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-text {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .footer-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-icon:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.2);
+        }
+        
+        .copyright {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .logo { font-size: 48px; }
+            .tagline { font-size: 20px; }
+            .section-title { font-size: 36px; }
+            .category-title { font-size: 28px; }
+            .blogs-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="crown">👑</div>
+            <h1 class="logo">KINGS-SOUZA</h1>
+            <p class="tagline">Conteúdo que Transforma Vidas</p>
+            <p class="tagline" style="font-size: 24px;">Da Evolução Pessoal à Espiritualidade Profunda</p>
+            
+            <div class="social-icons">
+                <div class="social-icon facebook" title="Facebook">📘</div>
+                <div class="social-icon instagram" title="Instagram">📷</div>
+                <div class="social-icon whatsapp" title="WhatsApp">💬</div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">⬇</div>
+    </section>
+
+    <section class="blogs-section">
+        <h2 class="section-title">NOSSOS UNIVERSOS</h2>
+        <p class="section-subtitle">Escolha sua jornada de transformação</p>
+        
+        <div class="category">
+            <h3 class="category-title dev">📈 DESENVOLVIMENTO & TECNOLOGIA</h3>
+            <div class="blogs-grid">
+                <a href="https://share.google/OWZGlx3eeqaB4WAJs" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">📈</span>
+                        <h4 class="blog-title">KINGS-SOUZA</h4>
+                        <p class="blog-description">Progresso e evolução contínua. Um manifesto para quem recusa a mediocridade.</p>
+                    </div>
+                </a>
+                
+                <a href="https://share.google/Imhq1Rwsmm5rmcZUz" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">🧠</span>
+                        <h4 class="blog-title">VIDA COM TDAH</h4>
+                        <p class="blog-description">Estratégias práticas para viver e prosperar com TDAH.</p>
+                    </div>
+                </a>
+                
+                <a href="https://share.google/CFzaSf1zPd39kanGW" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">⚠️</span>
+                        <h4 class="blog-title">SINTOMAS E ALERTAS TDAH</h4>
+                        <p class="blog-description">Identifique sinais, entenda sintomas e busque ajuda adequada.</p>
+                    </div>
+                </a>
+                
+                <a href="https://share.google/P2bjfP4pTDFWYPVrd" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">🤖</span>
+                        <h4 class="blog-title">TECNOLOGIA E IA</h4>
+                        <p class="blog-description">O futuro da inteligência artificial e inovação tecnológica.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <h3 class="category-title wellness">❤️ RELACIONAMENTOS & BEM-ESTAR</h3>
+            <div class="blogs-grid">
+                <a href="https://share.google/9nGs267ukNr7URjJ9" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">💕</span>
+                        <h4 class="blog-title">FRASES PODEROSAS DA CONQUISTA</h4>
+                        <p class="blog-description">Palavras que conectam corações e criam vínculos profundos.</p>
+                    </div>
+                </a>
+                
+                <a href="https://share.google/sN8psd5M1lQAuyT5V" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">🥗</span>
+                        <h4 class="blog-title">DIETA DO CUSCUZ</h4>
+                        <p class="blog-description">Emagrecimento saudável com estratégias alimentares eficazes.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <h3 class="category-title faith">✝️ ESPIRITUALIDADE & FÉ</h3>
+            <div class="blogs-grid">
+                <a href="https://share.google/FDsXJv42RNjdYv9NB" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">📖</span>
+                        <h4 class="blog-title">A MARCA DA BESTA</h4>
+                        <p class="blog-description">Estudos proféticos direto das Escrituras Sagradas.</p>
+                    </div>
+                </a>
+                
+                <a href="https://share.google/Ixx25KSQVGXW9ad7Y" target="_blank" style="text-decoration: none;">
+                    <div class="blog-card">
+                        <span class="blog-icon">🎵</span>
+                        <h4 class="blog-title">LOUVOR: REVERÊNCIA PERDIDA</h4>
+                        <p class="blog-description">Resgatando a verdadeira essência da adoração cristã.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">KINGS-SOUZA</div>
+        <p class="footer-text">Transformando vidas através do conhecimento e da fé</p>
+        
+        <div class="footer-social">
+            <div class="footer-icon" title="Facebook">📘</div>
+            <div class="footer-icon" title="Instagram">📷</div>
+            <div class="footer-icon" title="WhatsApp">💬</div>
+        </div>
+        
+        <p class="copyright">© 2025 KINGS-SOUZA - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.blogs-section').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.blog-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
